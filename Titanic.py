@@ -212,16 +212,3 @@ X_test['Fare'] = X_test[['Fare', 'Pclass']].apply(impute_Fare,axis=1)
 X_test.isnull().mean() * 100
 
 
-# %%
-X_test.head(5)
-
-# %%predict
-predictions=logmodel.predict(X_test)
-
-
-
-
-# %%
-from sklearn.metrics import accuracy_score
-accuracy_score(gender_submission['Survived'],predictions, normalize = True)
-# %%
