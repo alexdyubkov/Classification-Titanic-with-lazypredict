@@ -20,6 +20,7 @@ train=pd.read_csv("train.csv")
 
 
 
+
 # %%
 #some  info from df
 train.describe
@@ -118,10 +119,7 @@ train=pd.concat([train.drop('Embarked',axis=1),subgrade_dummies],axis=1)
 # %% X train, y train
 y_train=train['Survived']
 X_train =train.drop(['Survived'], axis=1)
-# %% Logistic regression
-from  sklearn.linear_model import LogisticRegression
-logmodel=LogisticRegression()
-logmodel.fit(X_train, y_train)
+X_train =X_train.drop(['Name'], axis=1)
 
 
 
@@ -210,5 +208,29 @@ X_test['Fare'] = X_test[['Fare', 'Pclass']].apply(impute_Fare,axis=1)
 
 #%%
 X_test.isnull().mean() * 100
+# %%
+import lazypredict
+from lazypredict.Supervised import LazyClassifier
 
 
+
+
+# %%
+y_test=pd.read_csv('gender_submission.csv')
+y_test.drop('PassengerId',axis=1,inplace=True)
+
+# %%
+clf = LazyClassifier(verbose=0,ignore_warnings=True, custom_metric=None)
+models,predictions = clf.fit(X_train, X_test, y_train, y_test)
+
+print(models)
+
+# %%
+print(X_train)
+# %%
+print(X_test)
+# %%
+print(y_train)
+# %%
+print(y_test)
+# %%
