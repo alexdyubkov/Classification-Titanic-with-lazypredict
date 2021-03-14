@@ -11,7 +11,7 @@ from sklearn.impute import SimpleImputer
 import numpy as np
 
 #chdir
-os.chdir("C:/Users/иван/Desktop/Python/мусор/titanic kaggle")
+os.chdir("C:/Users/иван/Desktop/Python/мусор/Classification-Titanic")
 
 #files ->df
 gender_submission=pd.read_csv("gender_submission.csv")
@@ -116,7 +116,7 @@ train=pd.concat([train.drop('Embarked',axis=1),subgrade_dummies],axis=1)
 
 
 # %% X train, y train
-y_train=train['Survived']
+y_train=train['Survived','PassengerId']
 X_train =train.drop(['Survived'], axis=1)
 # %% Logistic regression
 from  sklearn.linear_model import LogisticRegression
@@ -126,10 +126,9 @@ logmodel.fit(X_train, y_train)
 
 
 
-
 #%%
-
-
+print(y_train)
+#%%
 
 
 
