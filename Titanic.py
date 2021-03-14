@@ -116,19 +116,17 @@ train=pd.concat([train.drop('Embarked',axis=1),subgrade_dummies],axis=1)
 
 
 # %% X train, y train
-y_train=train['Survived','PassengerId']
+y_train=train[['Survived','PassengerId']]
 X_train =train.drop(['Survived'], axis=1)
 # %% Logistic regression
 from  sklearn.linear_model import LogisticRegression
 logmodel=LogisticRegression()
-logmodel.fit(X_train, y_train)
+logmodel.fit(X_train, y_train['Survived'])
 
 
 
 
-#%%
-print(y_train)
-#%%
+
 
 
 
@@ -223,4 +221,12 @@ predictions=logmodel.predict(X_test)
 # %%
 from sklearn.metrics import accuracy_score
 accuracy_score(gender_submission['Survived'],predictions, normalize = True)
+
 # %%
+prediction_with_id= pd.DataFrame(predictions,columns=['Predicted Survived'])
+print(prediction_with_id)
+# %%
+compare_prediction=(pd.concat([gender_submission,prediction_with_id],axis=1))
+# %%
+compare_prediction.head(60)
+
